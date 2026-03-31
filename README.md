@@ -34,6 +34,7 @@ The project includes SQL-based analysis to answer key business questions such as
 - The Electronics category generated the highest revenue.
 - The most sold products are not always the highest revenue drivers.
 - A small group of customers contributes a large share of sales value.
+- Monthly revenue shows visible fluctuations over time, indicating variation in commercial performance across different periods.
 
 ## Executive Summary
 
@@ -65,6 +66,9 @@ Overall, this project demonstrates how SQL and Python can be used together to tr
 
 ### Revenue by Customer
 ![Revenue by Customer](images/revenue_by_customer.png)
+
+### Monthly Revenue Trend
+![Monthly Revenue Trend](images/monthly_revenue_trend.png)
 
 ## Next Steps
 Future improvements for this project may include:

@@ -9,9 +9,16 @@ import matplotlib.pyplot as plt
 
 # Load transactional sales dataset
 df = pd.read_csv("data/sales_data.csv")
+
+df["order_date"] = pd.to_datetime(df["order_date"], format="mixed", dayfirst=True, errors="coerce")
+df["month"] = df["order_date"].dt.to_period("M").astype(str)
 # Store dataset in SQLite for SQL-based analysis
 conn = sqlite3.connect("sales_database.db")
 df.to_sql("sales", conn, if_exists="replace", index=False)
+
+print("\nParsed dates preview:\n")
+print(df[["order_date", "month"]].head())
+print("\n" + "-"*40 + "\n")
 
 # -------------------------------
 # Query 1: Revenue by product
@@ -85,8 +92,26 @@ print("Revenue by customer:\n")
 print(result_customer)
 
 # -------------------------------
+# Query 5: Monthly revenue trend
+# -------------------------------
+query_monthly = """
+SELECT 
+    month,
+    SUM(quantity * price) AS total_revenue
+FROM sales
+GROUP BY month
+ORDER BY month;
+"""
+result_monthly = pd.read_sql_query(query_monthly, conn)
+
+print("\nMonthly revenue trend:\n")
+print(result_monthly)
+print("\n" + "-"*40 + "\n")
+
+# -------------------------------
 # Visualization: Revenue by product
 # -------------------------------
+print("\nGenerating revenue by product chart...\n")
 plt.figure(figsize=(10, 6))
 plt.bar(result_product["product_name"], result_product["total_revenue"])
 plt.title("Revenue by Product")
@@ -100,6 +125,7 @@ plt.show()
 # -------------------------------
 # Visualization: Revenue by category
 # -------------------------------
+print("\nGenerating revenue by category chart...\n")
 plt.figure(figsize=(8, 5))
 plt.bar(result_category["category"], result_category["total_revenue"])
 plt.title("Revenue by Category")
@@ -109,11 +135,10 @@ plt.tight_layout()
 plt.savefig("images/revenue_by_category.png")
 plt.show()
 
-print("\nGenerating customer revenue chart...\n")
-
 # -------------------------------
 # Visualization: Revenue by customer
 # -------------------------------
+print("\nGenerating customer revenue chart...\n")
 plt.figure(figsize=(10, 6))
 plt.bar(result_customer["customer_id"], result_customer["total_revenue"])
 plt.title("Revenue by Customer")
@@ -122,6 +147,20 @@ plt.ylabel("Total Revenue")
 plt.xticks(rotation=45)
 plt.tight_layout()
 plt.savefig("images/revenue_by_customer.png")
+plt.show()
+
+# -------------------------------
+# Visualization: Monthly revenue trend
+# -------------------------------
+print("\nGenerating monthly revenue trend chart...\n")
+plt.figure(figsize=(10, 6))
+plt.plot(result_monthly["month"], result_monthly["total_revenue"], marker="o")
+plt.title("Monthly Revenue Trend")
+plt.xlabel("Month")
+plt.ylabel("Total Revenue")
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.savefig("images/monthly_revenue_trend.png")
 plt.show()
 
 conn.close()
