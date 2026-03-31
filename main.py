@@ -1,28 +1,26 @@
-#Proyecto de Analisis de ventas para el portfolio
-#SITUACION: Una empresa de e-commerce quiere entender qué productos venden más, cuáles generan más ingresos y cuáles parecen menos rentables, para tomar mejores decisiones comerciales.
-#PREGUNTA: ¿Qué productos y categorías generan más ingresos, y cuáles parecen tener bajo rendimiento comercial?
-#HERRAMIENTAS: Python, Pandas, SQLite, SQL.
-
 import pandas as pd
 import sqlite3
 import matplotlib.pyplot as plt
 
-# Load transactional sales dataset
+
+# Load sales dataset
 df = pd.read_csv("data/sales_data.csv")
 
-df["order_date"] = pd.to_datetime(df["order_date"], format="mixed", dayfirst=True, errors="coerce")
+# Prepare date fields for monthly analysis
+df["order_date"] = pd.to_datetime(
+    df["order_date"],
+    format="mixed",
+    dayfirst=True,
+    errors="coerce"
+)
 df["month"] = df["order_date"].dt.to_period("M").astype(str)
-# Store dataset in SQLite for SQL-based analysis
+
+# Create SQLite connection and load data
 conn = sqlite3.connect("sales_database.db")
 df.to_sql("sales", conn, if_exists="replace", index=False)
 
-print("\nParsed dates preview:\n")
-print(df[["order_date", "month"]].head())
-print("\n" + "-"*40 + "\n")
 
-# -------------------------------
-# Query 1: Revenue by product
-# -------------------------------
+# Revenue by product
 query_product = """
 SELECT 
     product_name,
@@ -31,16 +29,14 @@ FROM sales
 GROUP BY product_name
 ORDER BY total_revenue DESC;
 """
-
-result_product = pd.read_sql_query(query_product, conn)
+product_revenue = pd.read_sql_query(query_product, conn)
 
 print("Revenue by product:\n")
-print(result_product)
-print("\n" + "-"*40 + "\n")
+print(product_revenue)
+print("\n" + "-" * 40 + "\n")
 
-# -------------------------------
-# Query 2: Revenue by category
-# -------------------------------
+
+# Revenue by category
 query_category = """
 SELECT 
     category,
@@ -49,17 +45,15 @@ FROM sales
 GROUP BY category
 ORDER BY total_revenue DESC;
 """
-
-result_category = pd.read_sql_query(query_category, conn)
+category_revenue = pd.read_sql_query(query_category, conn)
 
 print("Revenue by category:\n")
-print(result_category)
-print("\n" + "-"*40 + "\n")
+print(category_revenue)
+print("\n" + "-" * 40 + "\n")
 
-# -------------------------------
-# Query 3: Units sold by product
-# -------------------------------
-query_quantity = """
+
+# Units sold by product
+query_units = """
 SELECT 
     product_name,
     SUM(quantity) AS total_units_sold
@@ -67,16 +61,14 @@ FROM sales
 GROUP BY product_name
 ORDER BY total_units_sold DESC;
 """
-
-result_quantity = pd.read_sql_query(query_quantity, conn)
+product_units = pd.read_sql_query(query_units, conn)
 
 print("Units sold by product:\n")
-print(result_quantity)
-print("\n" + "-"*40 + "\n")
+print(product_units)
+print("\n" + "-" * 40 + "\n")
 
-# -------------------------------
-# Query 4: Revenue by customer
-# -------------------------------
+
+# Revenue by customer
 query_customer = """
 SELECT 
     customer_id,
@@ -85,15 +77,14 @@ FROM sales
 GROUP BY customer_id
 ORDER BY total_revenue DESC;
 """
-
-result_customer = pd.read_sql_query(query_customer, conn)
+customer_revenue = pd.read_sql_query(query_customer, conn)
 
 print("Revenue by customer:\n")
-print(result_customer)
+print(customer_revenue)
+print("\n" + "-" * 40 + "\n")
 
-# -------------------------------
-# Query 5: Monthly revenue trend
-# -------------------------------
+
+# Monthly revenue trend
 query_monthly = """
 SELECT 
     month,
@@ -102,18 +93,17 @@ FROM sales
 GROUP BY month
 ORDER BY month;
 """
-result_monthly = pd.read_sql_query(query_monthly, conn)
+monthly_revenue = pd.read_sql_query(query_monthly, conn)
 
-print("\nMonthly revenue trend:\n")
-print(result_monthly)
-print("\n" + "-"*40 + "\n")
+print("Monthly revenue trend:\n")
+print(monthly_revenue)
+print("\n" + "-" * 40 + "\n")
 
-# -------------------------------
-# Visualization: Revenue by product
-# -------------------------------
+
+# Revenue by product chart
 print("\nGenerating revenue by product chart...\n")
 plt.figure(figsize=(10, 6))
-plt.bar(result_product["product_name"], result_product["total_revenue"])
+plt.bar(product_revenue["product_name"], product_revenue["total_revenue"])
 plt.title("Revenue by Product")
 plt.xlabel("Product")
 plt.ylabel("Total Revenue")
@@ -122,12 +112,11 @@ plt.tight_layout()
 plt.savefig("images/revenue_by_product.png")
 plt.show()
 
-# -------------------------------
-# Visualization: Revenue by category
-# -------------------------------
+
+# Revenue by category chart
 print("\nGenerating revenue by category chart...\n")
 plt.figure(figsize=(8, 5))
-plt.bar(result_category["category"], result_category["total_revenue"])
+plt.bar(category_revenue["category"], category_revenue["total_revenue"])
 plt.title("Revenue by Category")
 plt.xlabel("Category")
 plt.ylabel("Total Revenue")
@@ -135,12 +124,11 @@ plt.tight_layout()
 plt.savefig("images/revenue_by_category.png")
 plt.show()
 
-# -------------------------------
-# Visualization: Revenue by customer
-# -------------------------------
-print("\nGenerating customer revenue chart...\n")
+
+# Revenue by customer chart
+print("\nGenerating revenue by customer chart...\n")
 plt.figure(figsize=(10, 6))
-plt.bar(result_customer["customer_id"], result_customer["total_revenue"])
+plt.bar(customer_revenue["customer_id"], customer_revenue["total_revenue"])
 plt.title("Revenue by Customer")
 plt.xlabel("Customer ID")
 plt.ylabel("Total Revenue")
@@ -149,12 +137,11 @@ plt.tight_layout()
 plt.savefig("images/revenue_by_customer.png")
 plt.show()
 
-# -------------------------------
-# Visualization: Monthly revenue trend
-# -------------------------------
+
+# Monthly revenue trend chart
 print("\nGenerating monthly revenue trend chart...\n")
 plt.figure(figsize=(10, 6))
-plt.plot(result_monthly["month"], result_monthly["total_revenue"], marker="o")
+plt.plot(monthly_revenue["month"], monthly_revenue["total_revenue"], marker="o")
 plt.title("Monthly Revenue Trend")
 plt.xlabel("Month")
 plt.ylabel("Total Revenue")
@@ -162,5 +149,6 @@ plt.xticks(rotation=45)
 plt.tight_layout()
 plt.savefig("images/monthly_revenue_trend.png")
 plt.show()
+
 
 conn.close()
