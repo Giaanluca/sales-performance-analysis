@@ -1,0 +1,11 @@
+order_id,order_date,customer_id,product_name,category,quantity,price
+1001,2025-01-05,C001,Mouse,Accessories,2,15
+1002,2025-01-07,C002,Keyboard,Accessories,1,30
+1003,2025-01-10,C003,Monitor,Electronics,1,200
+1004,2025-01-12,C001,Mouse,Accessories,3,15
+1005,2025-01-15,C004,Laptop Stand,Accessories,2,25
+1006,2025-01-18,C005,Monitor,Electronics,1,200
+1007,2025-01-20,C002,Mouse,Accessories,1,15
+1008,2025-01-22,C006,Keyboard,Accessories,2,30
+1009,2025-01-25,C007,Webcam,Electronics,1,80
+1010,2025-01-28,C003,Mouse,Accessories,4,15
