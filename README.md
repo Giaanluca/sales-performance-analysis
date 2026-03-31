@@ -77,6 +77,12 @@ Overall, this project helped me practice how to move from raw transactional data
 ### Monthly Revenue Trend
 ![Monthly Revenue Trend](images/monthly_revenue_trend.png)
 
+## Additional Notes
+
+For a more detailed explanation of the analytical decisions and reasoning behind this project, see:
+
+- [Analysis Decisions and Reasoning](analysis_decisions.md)
+
 ## Next Steps
 Possible improvements for this project:
 
