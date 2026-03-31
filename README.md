@@ -1,19 +1,23 @@
 # Sales Performance Analysis
 
-## Project Overview
-This project analyzes sales data to identify top-performing products, revenue-driving categories, and high-value customers. The goal is to generate business insights that could help support commercial decision-making.
+## Overview
+This project explores a small sales dataset to understand which products, categories, and customers generate the most revenue.
+
+The main goal was to practice data analysis using Python, SQL, and SQLite while approaching the project from a business perspective.
 
 ## Business Question
-Which products and categories generate the most revenue, and which ones appear to have lower commercial performance?
+Which products and categories generate the most revenue, and which ones seem to perform below expectations?
 
-## Tools Used
+## Tools
 - Python
 - Pandas
 - SQLite
 - SQL
+- Matplotlib
 
 ## Dataset
-The dataset contains sales transaction data, including:
+The dataset contains fictional sales transaction data with the following fields:
+
 - Order ID
 - Order Date
 - Customer ID
@@ -22,38 +26,41 @@ The dataset contains sales transaction data, including:
 - Quantity
 - Price
 
-## Analysis Performed
-The project includes SQL-based analysis to answer key business questions such as:
+## What I Analyzed
+This project includes SQL-based analysis to answer questions such as:
+
 - Which products generate the most revenue?
 - Which categories contribute the most to total sales?
 - Which products sell the most units?
 - Which customers generate the highest revenue?
+- How does revenue change over time?
 
 ## Key Insights
-- Some products contribute significantly more to total revenue than others.
-- The Electronics category generated the highest revenue.
-- The most sold products are not always the highest revenue drivers.
-- A small group of customers contributes a large share of sales value.
-- Monthly revenue shows visible fluctuations over time, indicating variation in commercial performance across different periods.
+- Some products generate much more revenue than others.
+- The highest-selling products are not always the ones that bring in the most money.
+- A small group of customers contributes a large share of total revenue.
+- Revenue changes over time, with visible monthly ups and downs.
+- Category-level performance helps show where the business is strongest.
 
 ## Executive Summary
+This analysis was built to simulate a simple business case: understanding what is driving sales performance.
 
-This analysis highlights the main sales drivers of the business by identifying the products, categories, and customers that generate the highest revenue.
+The results show that revenue is not evenly distributed across products, categories, or customers. A few products and customer segments appear to contribute a larger share of sales, while monthly revenue also shows some variation over time.
 
-The results suggest that revenue is concentrated in a small number of high-performing products, while some categories contribute more consistently to overall sales than others. In addition, the customer revenue distribution indicates that a limited group of customers may account for a significant share of total revenue.
+From a business point of view, this kind of analysis can help support decisions related to:
 
-From a business perspective, these insights can support decisions related to:
-- product prioritization
-- category-level sales strategy
-- customer retention and segmentation
-- future revenue optimization opportunities
+- product focus
+- category strategy
+- customer segmentation
+- future sales optimization
 
-Overall, this project demonstrates how SQL and Python can be used together to transform transactional sales data into actionable business insights.
+Overall, this project helped me practice how to move from raw transactional data to clear and useful business insights.
 
-## Files Included
+## Files
 - `main.py` → main analysis script
-- `data/sales_data.csv` → dataset used for the analysis
-- `sales_database.db` → SQLite database
+- `data/sales_data.csv` → dataset used in the project
+- `sales_database.db` → SQLite database generated from the dataset
+- `images/` → saved charts used in this README
 - `README.md` → project documentation
 
 ## Visualizations
@@ -71,8 +78,9 @@ Overall, this project demonstrates how SQL and Python can be used together to tr
 ![Monthly Revenue Trend](images/monthly_revenue_trend.png)
 
 ## Next Steps
-Future improvements for this project may include:
-- Profit margin analysis
-- Monthly sales trends
-- Interactive dashboard development
-- excetuvie business summary
+Possible improvements for this project:
+
+- Add profit margin analysis
+- Compare revenue vs. units sold more deeply
+- Build an interactive dashboard
+- Add a short recommendation section based on the findings
