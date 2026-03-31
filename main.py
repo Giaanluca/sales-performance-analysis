@@ -5,18 +5,16 @@
 
 import pandas as pd
 import sqlite3
+import matplotlib.pyplot as plt
 
-# Leer el archivo CSV
+# Load transactional sales dataset
 df = pd.read_csv("data/sales_data.csv")
-
-# Crear conexión a base de datos SQLite
+# Store dataset in SQLite for SQL-based analysis
 conn = sqlite3.connect("sales_database.db")
-
-# Guardar el DataFrame como tabla SQL
 df.to_sql("sales", conn, if_exists="replace", index=False)
 
 # -------------------------------
-# Consulta 1: ingresos por producto
+# Query 1: Revenue by product
 # -------------------------------
 query_product = """
 SELECT 
@@ -29,12 +27,12 @@ ORDER BY total_revenue DESC;
 
 result_product = pd.read_sql_query(query_product, conn)
 
-print("Ingresos por producto:\n")
+print("Revenue by product:\n")
 print(result_product)
 print("\n" + "-"*40 + "\n")
 
 # -------------------------------
-# Consulta 2: ingresos por categoría
+# Query 2: Revenue by category
 # -------------------------------
 query_category = """
 SELECT 
@@ -47,12 +45,12 @@ ORDER BY total_revenue DESC;
 
 result_category = pd.read_sql_query(query_category, conn)
 
-print("Ingresos por categoría:\n")
+print("Revenue by category:\n")
 print(result_category)
 print("\n" + "-"*40 + "\n")
 
 # -------------------------------
-# Consulta 3: cantidad vendida por producto
+# Query 3: Units sold by product
 # -------------------------------
 query_quantity = """
 SELECT 
@@ -65,12 +63,12 @@ ORDER BY total_units_sold DESC;
 
 result_quantity = pd.read_sql_query(query_quantity, conn)
 
-print("Cantidad vendida por producto:\n")
+print("Units sold by product:\n")
 print(result_quantity)
 print("\n" + "-"*40 + "\n")
 
 # -------------------------------
-# Consulta 4: ingresos por cliente
+# Query 4: Revenue by customer
 # -------------------------------
 query_customer = """
 SELECT 
@@ -83,8 +81,47 @@ ORDER BY total_revenue DESC;
 
 result_customer = pd.read_sql_query(query_customer, conn)
 
-print("Ingresos por cliente:\n")
+print("Revenue by customer:\n")
 print(result_customer)
 
-# Cerrar conexión
+# -------------------------------
+# Visualization: Revenue by product
+# -------------------------------
+plt.figure(figsize=(10, 6))
+plt.bar(result_product["product_name"], result_product["total_revenue"])
+plt.title("Revenue by Product")
+plt.xlabel("Product")
+plt.ylabel("Total Revenue")
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.savefig("images/revenue_by_product.png")
+plt.show()
+
+# -------------------------------
+# Visualization: Revenue by category
+# -------------------------------
+plt.figure(figsize=(8, 5))
+plt.bar(result_category["category"], result_category["total_revenue"])
+plt.title("Revenue by Category")
+plt.xlabel("Category")
+plt.ylabel("Total Revenue")
+plt.tight_layout()
+plt.savefig("images/revenue_by_category.png")
+plt.show()
+
+print("\nGenerating customer revenue chart...\n")
+
+# -------------------------------
+# Visualization: Revenue by customer
+# -------------------------------
+plt.figure(figsize=(10, 6))
+plt.bar(result_customer["customer_id"], result_customer["total_revenue"])
+plt.title("Revenue by Customer")
+plt.xlabel("Customer ID")
+plt.ylabel("Total Revenue")
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.savefig("images/revenue_by_customer.png")
+plt.show()
+
 conn.close()

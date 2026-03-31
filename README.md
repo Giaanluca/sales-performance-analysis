@@ -41,9 +41,20 @@ The project includes SQL-based analysis to answer key business questions such as
 - `sales_database.db` → SQLite database
 - `README.md` → project documentation
 
+## Visualizations
+
+### Revenue by Product
+![Revenue by Product](images/revenue_by_product.png)
+
+### Revenue by Category
+![Revenue by Category](images/revenue_by_category.png)
+
+### Revenue by Customer
+![Revenue by Customer](images/revenue_by_customer.png)
+
 ## Next Steps
 Future improvements for this project may include:
-- Data visualizations
 - Profit margin analysis
 - Monthly sales trends
 - Interactive dashboard development
+- excetuvie business summary
