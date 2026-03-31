@@ -35,6 +35,20 @@ The project includes SQL-based analysis to answer key business questions such as
 - The most sold products are not always the highest revenue drivers.
 - A small group of customers contributes a large share of sales value.
 
+## Executive Summary
+
+This analysis highlights the main sales drivers of the business by identifying the products, categories, and customers that generate the highest revenue.
+
+The results suggest that revenue is concentrated in a small number of high-performing products, while some categories contribute more consistently to overall sales than others. In addition, the customer revenue distribution indicates that a limited group of customers may account for a significant share of total revenue.
+
+From a business perspective, these insights can support decisions related to:
+- product prioritization
+- category-level sales strategy
+- customer retention and segmentation
+- future revenue optimization opportunities
+
+Overall, this project demonstrates how SQL and Python can be used together to transform transactional sales data into actionable business insights.
+
 ## Files Included
 - `main.py` → main analysis script
 - `data/sales_data.csv` → dataset used for the analysis
