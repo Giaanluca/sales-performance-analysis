@@ -112,15 +112,14 @@ From a business perspective, this type of analysis can support decisions related
 
 ### Power BI Dashboard
 
-The final dashboard includes:
+![Dashboard Preview](reports/images/dashboard_preview.png)
 
-* Revenue KPIs
-* Monthly revenue trend
-* Revenue by category
-* Top customers
-* Top-performing products
-
-*(Dashboard available in `/dashboard` folder)*
+The dashboard includes:
+- Revenue KPIs  
+- Monthly revenue trend  
+- Revenue by category  
+- Top customers  
+- Top-performing products  
 
 ---
 
