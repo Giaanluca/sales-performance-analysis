@@ -1,92 +1,165 @@
 # Sales Performance Analysis
 
 ## Overview
-This project explores a small sales dataset to understand which products, categories, and customers generate the most revenue.
 
-The main goal was to practice data analysis using Python, SQL, and SQLite while approaching the project from a business perspective.
+This project analyzes sales transaction data to understand which products, categories, and customers generate the most revenue.
+
+The project was expanded to include a structured ETL pipeline, SQL-based analysis, and an interactive Power BI dashboard, allowing a more complete end-to-end data workflow.
+
+A basic ETL pipeline was implemented to structure the data into raw and processed layers.
+
+The main goal was to simulate a real-world data analysis process, moving from raw data to business insights.
+
+---
 
 ## Business Question
+
 Which products and categories generate the most revenue, and which ones seem to perform below expectations?
 
+Additionally:
+
+* How does revenue evolve over time?
+* Which customers contribute the most to total revenue?
+
+---
+
 ## Tools
-- Python
-- Pandas
-- SQLite
-- SQL
-- Matplotlib
+
+* Python
+* Pandas
+* SQL
+* SQLite
+* Power BI
+
+---
 
 ## Dataset
-The dataset contains fictional sales transaction data with the following fields:
 
-- Order ID
-- Order Date
-- Customer ID
-- Product Name
-- Category
-- Quantity
-- Price
+The dataset contains fictional sales transaction data with fields such as:
+
+* Order ID
+* Order Date
+* Customer ID
+* Product Name
+* Category
+* Quantity
+* Price
+
+The data is organized into:
+
+* **Raw data** (`data/raw/`)
+* **Processed data** (`data/processed/`) after cleaning and transformation
+
+---
 
 ## What I Analyzed
-This project includes SQL-based analysis to answer questions such as:
 
-- Which products generate the most revenue?
-- Which categories contribute the most to total sales?
-- Which products sell the most units?
-- Which customers generate the highest revenue?
-- How does revenue change over time?
+This project includes both SQL and Python-based analysis, along with dashboard visualization, to answer questions such as:
+
+* Which products generate the most revenue?
+* Which categories contribute the most to total sales?
+* Which products sell the most units?
+* Which customers generate the highest revenue?
+* How does revenue change over time?
+
+---
 
 ## Key Insights
-- Some products generate much more revenue than others.
-- The highest-selling products are not always the ones that bring in the most money.
-- A small group of customers contributes a large share of total revenue.
-- Revenue changes over time, with visible monthly ups and downs.
-- Category-level performance helps show where the business is strongest.
+
+* Revenue shows an overall upward trend with some fluctuations, suggesting possible seasonality.
+* A small group of customers contributes a significant share of total revenue.
+* Sales are concentrated in a limited number of products and categories.
+* High-volume products are not always the highest revenue generators.
+* There is an opportunity to improve underperforming products and diversify revenue streams.
+
+---
 
 ## Executive Summary
-This analysis was built to simulate a simple business case: understanding what is driving sales performance.
 
-The results show that revenue is not evenly distributed across products, categories, or customers. A few products and customer segments appear to contribute a larger share of sales, while monthly revenue also shows some variation over time.
+This project simulates a real-world business scenario: understanding what drives sales performance.
 
-From a business point of view, this kind of analysis can help support decisions related to:
+A complete workflow was implemented, including:
 
-- product focus
-- category strategy
-- customer segmentation
-- future sales optimization
+* Data extraction and cleaning (ETL pipeline)
+* SQL-based exploration
+* Data visualization using Power BI
 
-Overall, this project helped me practice how to move from raw transactional data to clear and useful business insights.
+The analysis shows that revenue is not evenly distributed across products, categories, or customers. A small subset of elements drives a large portion of total revenue, while trends over time reveal variability in sales performance.
+
+From a business perspective, this type of analysis can support decisions related to:
+
+* Product strategy
+* Category performance optimization
+* Customer segmentation
+* Revenue growth opportunities
+
+---
 
 ## Files
-- `main.py` → main analysis script
-- `data/sales_data.csv` → dataset used in the project
-- `sales_database.db` → SQLite database generated from the dataset
-- `images/` → saved charts used in this README
-- `README.md` → project documentation
+
+* `scripts/etl.py` → ETL pipeline (data extraction, cleaning, transformation)
+* `data/raw/sales_raw.csv` → original dataset
+* `data/processed/sales_clean.csv` → cleaned dataset
+* `dashboard/sales_dashboard.pbix` → Power BI dashboard
+* `sql/queries.sql` → SQL queries used for analysis
+* `reports/images/` → exploratory analysis visualizations (Python)
+* `analysis_decisions.md` → explanation of analytical decisions
+* `README.md` → project documentation
+
+---
 
 ## Visualizations
 
+### Power BI Dashboard
+
+The final dashboard includes:
+
+* Revenue KPIs
+* Monthly revenue trend
+* Revenue by category
+* Top customers
+* Top-performing products
+
+*(Dashboard available in `/dashboard` folder)*
+
+---
+
+### Exploratory Analysis (Python)
+
 ### Revenue by Product
-![Revenue by Product](images/revenue_by_product.png)
+
+![Revenue by Product](reports/images/revenue_by_product.png)
 
 ### Revenue by Category
-![Revenue by Category](images/revenue_by_category.png)
+
+![Revenue by Category](reports/images/revenue_by_category.png)
 
 ### Revenue by Customer
-![Revenue by Customer](images/revenue_by_customer.png)
+
+![Revenue by Customer](reports/images/revenue_by_customer.png)
 
 ### Monthly Revenue Trend
-![Monthly Revenue Trend](images/monthly_revenue_trend.png)
+
+![Monthly Revenue Trend](reports/images/monthly_revenue_trend.png)
+
+---
 
 ## Additional Notes
 
 For a more detailed explanation of the analytical decisions and reasoning behind this project, see:
 
-- [Analysis Decisions and Reasoning](analysis_decisions.md)
+* [Analysis Decisions and Reasoning](analysis_decisions.md)
+
+---
 
 ## Next Steps
+
 Possible improvements for this project:
 
-- Add profit margin analysis
-- Compare revenue vs. units sold more deeply
-- Build an interactive dashboard
-- Add a short recommendation section based on the findings
+* Automate the existing ETL pipeline (e.g., scheduled or incremental runs)
+* Publish the Power BI dashboard to Power BI Service for online sharing
+* Enhance dashboard interactivity with slicers and drill-down capabilities
+* Incorporate additional business metrics such as profit and margins
+* Improve the data model to support more advanced and scalable analysis
+
+---
